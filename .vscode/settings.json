@@ -1,0 +1,5 @@
+{
+    "editor.minimap.maxColumn": 70,
+    "java.implementationsCodeLens.enabled": true,
+    "java.referencesCodeLens.enabled": true
+}

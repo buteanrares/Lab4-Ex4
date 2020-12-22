@@ -24,27 +24,27 @@ public abstract class GenericRepository<T extends GenericModel> {
 
     protected abstract void loadFromFile() throws IOException;
 
-    protected void create(T object) {
+    public void create(T object) {
         this.container.add(object);
     }
 
-    protected T get(int ID) {
+    public T get(int ID) {
         return this.container.get(ID);
     }
 
-    protected ArrayList<T> getAll() {
+    public ArrayList<T> getAll() {
         return this.container;
     }
 
-    protected void update(int ID, T newObject) {
+    public void update(int ID, T newObject) {
         this.container.set(ID, newObject);
     }
 
-    protected void delete(int ID) {
+    public void delete(int ID) {
         this.container.remove(ID);
     }
 
-    protected void delete(T object) {
+    public void delete(T object) {
         this.container.remove(object);
     }
 

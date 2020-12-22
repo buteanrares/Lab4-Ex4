@@ -23,12 +23,16 @@ public class Person extends GenericModel {
         this.job = "nojob";
     }
 
-    public Person(int ID, String forename, String surname, int noApartment, LocalDate birthdate, String job) {
+    public Person(int ID, String forename, String surname, int noApartment, String birthdate, String job) {
         super(ID);
+
+        String format = "dd/MM/yyyy";
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern(format);
+
         this.forename = forename;
         this.surname = surname;
         this.noApartment = noApartment;
-        this.birthdate = birthdate;
+        this.birthdate = LocalDate.parse(birthdate, dateFormat);
         this.job = job;
     }
 

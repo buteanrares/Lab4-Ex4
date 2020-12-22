@@ -3,17 +3,28 @@ package Domain;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Person {
+public class Person extends GenericModel {
 
-    private int ID;
     private String forename;
     private String surname;
     private int noApartment;
     private LocalDate birthdate;
     private String job;
 
+    public Person() {
+        String format = "dd/MM/yyyy";
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern(format);
+
+        this.ID = -1;
+        this.forename = "noforename";
+        this.surname = "nosurname";
+        this.noApartment = -1;
+        this.birthdate = LocalDate.parse("01/01/0001", dateFormat);
+        this.job = "nojob";
+    }
+
     public Person(int ID, String forename, String surname, int noApartment, LocalDate birthdate, String job) {
-        this.ID = ID;
+        super(ID);
         this.forename = forename;
         this.surname = surname;
         this.noApartment = noApartment;
@@ -22,7 +33,7 @@ public class Person {
     }
 
     public Person(String[] data) {
-        String format = "yyyy/MM/dd";
+        String format = "dd/MM/yyyy";
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern(format);
 
         this.ID = Integer.parseInt(data[0]);

@@ -7,7 +7,7 @@ import Domain.Person;
 
 public class PeopleRepository extends GenericRepository<Person> {
 
-    protected PeopleRepository(String filePath) {
+    public PeopleRepository(String filePath) {
         super(filePath);
     }
 

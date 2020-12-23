@@ -5,7 +5,7 @@ import Domain.Person;
 import Domain.Apartment;
 
 public class ModelValidator {
-    ModelValidator() {
+    public ModelValidator() {
 
     }
 

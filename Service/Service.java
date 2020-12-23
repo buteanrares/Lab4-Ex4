@@ -7,7 +7,7 @@ import Domain.Apartment;
 import Validator.ModelValidator;
 
 public class Service {
-    
+
     private PeopleRepository peopleRepository;
     private ApartmentsRepository apartmentsRepository;
     private ModelValidator modelValidator;

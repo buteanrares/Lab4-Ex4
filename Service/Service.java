@@ -1,21 +1,17 @@
 package Service;
 
-import Containers.ApartmentsRepository;
-import Containers.PeopleRepository;
+import Containers.Repository;
 import Domain.Person;
 import Domain.Apartment;
 import Validator.ModelValidator;
 
 public class Service {
 
-    private PeopleRepository peopleRepository;
-    private ApartmentsRepository apartmentsRepository;
+    private Repository repository;
     private ModelValidator modelValidator;
 
-    public Service(PeopleRepository peopleRepository, ApartmentsRepository apartmentsRepository,
-            ModelValidator modelValidator) {
-        this.peopleRepository = peopleRepository;
-        this.apartmentsRepository = apartmentsRepository;
+    public Service(Repository repository, ModelValidator modelValidator) {
+        this.repository = repository;
         this.modelValidator = modelValidator;
     }
 
@@ -23,22 +19,22 @@ public class Service {
         Person person = new Person(generatePersonID(), forename, surname, noApartment, birthdate, job);
 
         this.modelValidator.validate(person);
-        this.peopleRepository.create(person);
+        this.repository.create(person);
     }
 
     public void createApartment(int noApartment, String owner, int noResidents, int surface) {
         Apartment apartment = new Apartment(generateApartmentID(), noApartment, owner, noResidents, surface);
 
         this.modelValidator.validate(apartment);
-        this.apartmentsRepository.create(apartment);
+        this.repository.create(apartment);
     }
 
     public Person getPerson(int ID) {
-        return this.peopleRepository.get(ID);
+        return this.repository.getPerson(ID);
     }
 
     public Apartment getNoApartment(int ID) {
-        return this.apartmentsRepository.get(ID);
+        return this.repository.getApartment(ID);
     }
 
     public void updatePerson(int ID, String newForename, String newSurname, int newNoApartment, String newBirthdate,
@@ -46,27 +42,27 @@ public class Service {
         Person person = new Person(ID, newForename, newSurname, newNoApartment, newBirthdate, newJob);
 
         this.modelValidator.validate(person);
-        this.peopleRepository.update(ID, person);
+        this.repository.update(ID, person);
     }
 
     public void updateApartment(int ID, int newNoApartment, String newOwner, int newNoResidents, int newSurface) {
         Apartment apartment = new Apartment(ID, newNoApartment, newOwner, newNoResidents, newSurface);
 
         this.modelValidator.validate(apartment);
-        this.apartmentsRepository.update(ID, apartment);
+        this.repository.update(ID, apartment);
     }
 
     public void deletePerson(int ID) {
-        this.peopleRepository.delete(ID);
+        this.repository.deletePerson(ID);
     }
 
     public void deleteApartment(int ID) {
-        this.apartmentsRepository.delete(ID);
+        this.repository.deleteApartment(ID);
     }
 
     private int generatePersonID() {
         int ID = 0;
-        while (peopleRepository.get(ID) != null) {
+        while (repository.getPerson(ID) != null) {
             ID++;
         }
         return ID;
@@ -74,7 +70,7 @@ public class Service {
 
     private int generateApartmentID() {
         int ID = 0;
-        while (apartmentsRepository.get(ID) != null) {
+        while (repository.getApartment(ID) != null) {
             ID++;
         }
         return ID;

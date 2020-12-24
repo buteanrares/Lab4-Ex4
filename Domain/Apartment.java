@@ -1,7 +1,8 @@
 package Domain;
 
-public class Apartment extends GenericModel {
+public class Apartment {
 
+    private int ID;
     private int noApartment;
     private String owner;
     private int noResidents;
@@ -16,7 +17,7 @@ public class Apartment extends GenericModel {
     }
 
     public Apartment(int ID, int noApartment, String owner, int noResidents, int surface) {
-        super(ID);
+        this.ID = ID;
         this.noApartment = noApartment;
         this.owner = owner;
         this.noResidents = noResidents;

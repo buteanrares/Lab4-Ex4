@@ -79,7 +79,27 @@ public class Console {
     }
 
     private void handleAddPerson() {
-        // TODO
+        try {
+            System.out.println("Dati atributele persoanei conform modelului");
+            System.out.println("prenume,nume,nr. apartament,zi nastere,job");
+            // this.scan.next(); // consuma \n
+
+            String userInput = scan.next();
+            for (String line : userInput.split("\n")) {
+                String[] personData = line.split(",");
+                if (personData.length != 5)
+                    throw new IndexOutOfBoundsException("Persoana cu datele\n" + line + " nu este valida.");
+                String forename = personData[0];
+                String surname = personData[1];
+                int noApartment = Integer.parseInt(personData[2]);
+                String birthdate = personData[3];
+                String job = personData[4];
+                this.service.createPerson(forename, surname, noApartment, birthdate, job);
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Conversie nr. apartament esuata.");
+        }
+
     }
 
     private void handleAddApartment() {

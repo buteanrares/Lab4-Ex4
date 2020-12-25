@@ -33,7 +33,7 @@ public class Service {
         return this.repository.getPerson(ID);
     }
 
-    public Apartment getNoApartment(int ID) {
+    public Apartment getApartment(int ID) {
         return this.repository.getApartment(ID);
     }
 

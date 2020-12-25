@@ -21,10 +21,10 @@ public class Repository {
         String peopleFilePath = this.dbFilePath + "\\people.csv";
         try (BufferedWriter bWriter = new BufferedWriter(new FileWriter(peopleFilePath))) {
             for (Person p : people) {
-                bWriter.write(p.toCSV() + "\n");
+                bWriter.append(p.toCSV() + "\n");
             }
         } catch (IOException e) {
-            System.out.println("Fisier inexistent sau corupt");
+            System.out.println("Fisier inexistent sau format incorect.");
         }
     }
 
@@ -32,10 +32,10 @@ public class Repository {
         String apartmentsFilePath = this.dbFilePath + "\\apartments.csv";
         try (BufferedWriter bWriter = new BufferedWriter(new FileWriter(apartmentsFilePath))) {
             for (Apartment a : apartments) {
-                bWriter.write(a.toCSV() + "\n");
+                bWriter.append(a.toCSV() + "\n");
             }
         } catch (IOException e) {
-            System.out.println("Fisier inexistent sau corupt");
+            System.out.println("Fisier inexistent sau format incorect.");
         }
     }
 

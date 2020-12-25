@@ -84,52 +84,130 @@ public class Console {
             System.out.println("prenume,nume,nr. apartament,zi nastere,job");
             this.scan.nextLine(); // consuma \n
 
-            String userInput = scan.nextLine();
-            String[] personData = userInput.split(",");
-            for (int i = 0; i < personData.length; i += 5) {
+            String userInput;
+            while (!(userInput = scan.nextLine()).equals("")) {
+                String[] personData = userInput.split(",");
                 if (personData.length % 5 != 0)
-                    throw new IndexOutOfBoundsException("Datele introduse nu pot alcatui persoane valide.");
-                String forename = personData[i + 0];
-                String surname = personData[i + 1];
-                int noApartment = Integer.parseInt(personData[i + 2]);
-                String birthdate = personData[i + 3];
-                String job = personData[i + 4];
+                    throw new IndexOutOfBoundsException();
+                String forename = personData[0];
+                String surname = personData[1];
+                int noApartment = Integer.parseInt(personData[2]);
+                String birthdate = personData[3];
+                String job = personData[4];
                 this.service.createPerson(forename, surname, noApartment, birthdate, job);
             }
         } catch (NumberFormatException e) {
             System.out.println("Conversie nr. apartament esuata.");
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Datele introduse nu pot alcatui persoane valide.");
         }
-
     }
 
     private void handleAddApartment() {
-        // TODO
+        try {
+            System.out.println("Dati atributele apartamentului conform modelului");
+            System.out.println("nr. apartament,suprafata");
+            this.scan.nextLine(); // consuma \n
+
+            String userInput;
+            while (!(userInput = scan.nextLine()).equals("")) {
+                String[] apartmentData = userInput.split(",");
+                if (apartmentData.length % 2 != 0)
+                    throw new IndexOutOfBoundsException();
+                int noApartment = Integer.parseInt(apartmentData[0]);
+                int surface = Integer.parseInt(apartmentData[1]);
+                this.service.createApartment(noApartment, "fara", 0, surface);
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Conversie nr. apartament / suprafata esuata.");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Datele introduse nu pot alcatui apartamente valide.");
+        }
     }
 
     private void handleUpdatePerson() {
-        // TODO
+        try {
+            System.out.print("ID-ul persoanei de modificat: ");
+            int ID = this.scan.nextInt();
+
+            System.out.println("Dati atributele persoanei conform modelului");
+            System.out.println("prenume,nume,nr. apartament,zi nastere,job");
+            this.scan.nextLine(); // consuma \n
+
+            String userInput = this.scan.nextLine();
+            String[] personData = userInput.split(",");
+
+            String newForename = personData[0];
+            String newSurname = personData[1];
+            int newNoApartment = Integer.parseInt(personData[2]);
+            String newBirthdate = personData[3];
+            String newJob = personData[4];
+            this.service.updatePerson(ID, newForename, newSurname, newNoApartment, newBirthdate, newJob);
+        } catch (NumberFormatException e) {
+            System.out.println("ID-ul trebuie sa fie un numar natural pozitiv.");
+        }
     }
 
     private void handleUpdateApartment() {
-        // TODO
+        try {
+            System.out.print("ID-ul apartamentului de modificat: ");
+            int ID = this.scan.nextInt();
+
+            System.out.println("Dati atributele apartamentului conform modelului");
+            System.out.println("nr. apartament,proprietar,suprafata");
+            this.scan.nextLine(); // consuma \n
+
+            String userInput = this.scan.nextLine();
+            String[] apartmentData = userInput.split(",");
+
+            int newNoApartment = Integer.parseInt(apartmentData[0]);
+            String newOwner = apartmentData[1];
+            int newSurface = Integer.parseInt(apartmentData[2]);
+
+            int noResidents = this.service.getApartment(ID).getNoResidents();
+            this.service.updateApartment(ID, newNoApartment, newOwner, noResidents, newSurface);
+        } catch (NumberFormatException e) {
+            System.out.println("ID-ul trebuie sa fie un numar natural pozitiv.");
+
+        }
     }
 
     private void handleDeletePerson() {
-        // TODO
+        try {
+            System.out.print("ID-ul persoanei de sters: ");
+            int ID = this.scan.nextInt();
+
+            this.service.deletePerson(ID);
+        } catch (NumberFormatException e) {
+            System.out.println("ID inexistent sau invalid.");
+        }
     }
 
     private void handleDeleteApartment() {
-        // TODO
+        try {
+            System.out.print("ID-ul apartamentului de sters: ");
+            int ID = this.scan.nextInt();
+
+            this.service.deleteApartment(ID);
+        } catch (NumberFormatException e) {
+            System.out.println("ID inexistent sau invalid.");
+        }
     }
 
     private void handleShowPeople() {
-        // TODO
+        try {
+            // TODO: Table format display
+        } catch (Exception e) {
+            System.out.println("Eroare??");
+        }
     }
 
     private void handleShowApartments() {
-        // TODO
+        try {
+            // TODO: Table format display
+        } catch (Exception e) {
+            System.out.println("Eroare??");
+        }
     }
 
     private void handleShowTaxes() {

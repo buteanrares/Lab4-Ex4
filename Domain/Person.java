@@ -13,19 +13,19 @@ public class Person {
     private String job;
 
     public Person() {
-        String format = "dd-MM-yyyy";
+        String format = "yyyy-MM-dd";
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern(format);
 
         this.ID = -1;
         this.forename = "noforename";
         this.surname = "nosurname";
         this.noApartment = -1;
-        this.birthdate = LocalDate.parse("01-01-0001", dateFormat);
+        this.birthdate = LocalDate.parse("0001-01-01", dateFormat);
         this.job = "nojob";
     }
 
     public Person(int ID, String forename, String surname, int noApartment, String birthdate, String job) {
-        String format = "dd-MM-yyyy";
+        String format = "yyyy-MM-dd";
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern(format);
 
         this.ID = ID;
@@ -37,7 +37,7 @@ public class Person {
     }
 
     public Person(String[] data) {
-        String format = "dd-MM-yyyy";
+        String format = "yyyy-MM-dd";
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern(format);
 
         this.ID = Integer.parseInt(data[0]);
@@ -94,9 +94,7 @@ public class Person {
 
     public boolean isOver18() {
         LocalDate now = LocalDate.now();
-        if (this.birthdate.isBefore(now.minusYears(18)))
-            return true;
-        return false;
+        return this.birthdate.isBefore(now.minusYears(18));
     }
 
     public String toCSV() {

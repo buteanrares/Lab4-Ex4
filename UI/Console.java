@@ -196,7 +196,7 @@ public class Console {
 
     private void handleShowPeople() {
         try {
-            // TODO: Table format display
+            System.out.println("\n" + this.service.generatePeopleTable());
         } catch (Exception e) {
             System.out.println("Eroare??");
         }

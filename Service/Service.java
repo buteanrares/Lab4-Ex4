@@ -76,4 +76,29 @@ public class Service {
         return ID;
     }
 
+    public String generatePeopleTable() {
+        String header = String.format("%-5s | %-15s | %-15s | %-20s | %-15s | %-15s", "ID", "Nume", "Prenume",
+                "Nr. apartament", "Zi nstere", "Job");
+        String output = header + "\n";
+        for (Person person : this.repository.getPeople()) {
+            String formattedPerson = String.format("%-5s | %-15s | %-15s | %20s | %-15s | %-15s", person.getID(),
+                    person.getSurname(), person.getForename(), person.getNoApartment(), person.getBirhtdate(),
+                    person.getJob());
+            output += formattedPerson + "\n";
+        }
+        return output;
+    }
+
+    public String generateApartmentsTable() {
+        String header = String.format("%-5s | %-20s | %-25s | %-5s | %-5s", "ID", "Nr. apartament", "Proprietar",
+                "Nr. locatari", "Suprafata");
+        String output = header + "\n";
+        for (Apartment apartment : this.repository.getApartments()) {
+            String formattedApartment = String.format("%-5s | %20s | %-25s | %5s | %5s", apartment.getID(),
+                    apartment.getNoApartment(), apartment.getOwner(), apartment.getNoResidents(),
+                    apartment.getSurface());
+            output += formattedApartment += "\n";
+        }
+        return output;
+    }
 }

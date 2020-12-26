@@ -204,7 +204,7 @@ public class Console {
 
     private void handleShowApartments() {
         try {
-            // TODO: Table format display
+            System.out.println("\n" + this.service.generateApartmentsTable());
         } catch (Exception e) {
             System.out.println("Eroare??");
         }
@@ -215,7 +215,11 @@ public class Console {
     }
 
     private void handleShowInfo() {
-        // TODO
+        try {
+            System.out.println("\n" + this.service.generateInfoTable());
+        } catch (Exception e) {
+            System.out.println("Eroare??");
+        }
     }
 
 }

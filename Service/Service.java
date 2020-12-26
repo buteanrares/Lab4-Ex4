@@ -90,14 +90,34 @@ public class Service {
     }
 
     public String generateApartmentsTable() {
-        String header = String.format("%-5s | %-20s | %-25s | %-5s | %-5s", "ID", "Nr. apartament", "Proprietar",
+        String header = String.format("%-5s | %-20s | %-25s | %-13s | %-9s", "ID", "Nr. apartament", "Proprietar",
                 "Nr. locatari", "Suprafata");
         String output = header + "\n";
         for (Apartment apartment : this.repository.getApartments()) {
-            String formattedApartment = String.format("%-5s | %20s | %-25s | %5s | %5s", apartment.getID(),
+            String formattedApartment = String.format("%-5s | %20s | %-25s | %13s | %9s", apartment.getID(),
                     apartment.getNoApartment(), apartment.getOwner(), apartment.getNoResidents(),
                     apartment.getSurface());
             output += formattedApartment += "\n";
+        }
+        return output;
+    }
+
+    public String generateInfoTable() {
+        int currentInfo = 1;
+        String header = String.format("%-7s | %-35s", "Nr. Crt", "Descriere");
+        String output = header + "\n";
+        for (Person person : this.repository.getPeople()) {
+            if (person.getJob().equals("pensionar") || person.getJob().equals("somer")) {
+                String description = "Locatarul " + person.getSurname() + " " + person.getForename() + " este "
+                        + person.getJob();
+                output += String.format("%-7d | %-35s", currentInfo++, description) + "\n";
+            }
+        }
+        for (Apartment apartment : this.repository.getApartments()) {
+            if (apartment.getOwner().equals("fara")) {
+                String description = "Apartamentul " + apartment.getNoApartment() + " este de vanzare";
+                output += String.format("%-7d | %-35s", currentInfo++, description) + "\n";
+            }
         }
         return output;
     }

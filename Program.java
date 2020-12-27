@@ -7,6 +7,7 @@ import Validator.ModelValidator;
 
 public class Program {
 
+    // Driver class and method
     public static void main(String[] args) throws IOException {
         ModelValidator modelValidator = new ModelValidator();
 

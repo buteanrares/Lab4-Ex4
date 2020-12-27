@@ -6,18 +6,27 @@ import java.util.Scanner;
 import Service.Service;
 
 public class Console {
+
+    // Console fields
     private Scanner scan = new Scanner(System.in);
     private Service service;
 
+    /**
+     * Parameterized constructor. Parameters are self-explanatory
+     * 
+     * @param service
+     */
     public Console(Service service) {
         this.service = service;
     }
 
+    // Driver method for Console class
     public void run() {
         handleShowMenu();
         this.handleOption();
     }
 
+    // Displays menu containing available options
     private static void handleShowMenu() {
         System.out.println();
         System.out.println("1.  Adaugati persoana");
@@ -33,6 +42,7 @@ public class Console {
         System.out.println("11. Inchide");
     }
 
+    // Handles user's option selection
     private void handleOption() {
         String option = "0";
 
@@ -79,6 +89,7 @@ public class Console {
         }
     }
 
+    // Handler for adding a person
     private void handleAddPerson() {
         try {
             System.out.println("Dati atributele persoanei conform modelului");
@@ -104,6 +115,7 @@ public class Console {
         }
     }
 
+    // Handler for adding an apartment
     private void handleAddApartment() {
         try {
             System.out.println("Dati atributele apartamentului conform modelului");
@@ -126,6 +138,7 @@ public class Console {
         }
     }
 
+    // Handler for updating a person
     private void handleUpdatePerson() {
         try {
             System.out.print("ID-ul persoanei de modificat: ");
@@ -149,6 +162,7 @@ public class Console {
         }
     }
 
+    // Handler for updating an apartment
     private void handleUpdateApartment() {
         try {
             System.out.print("ID-ul apartamentului de modificat: ");
@@ -173,6 +187,7 @@ public class Console {
         }
     }
 
+    // Handler for deleting a person
     private void handleDeletePerson() {
         try {
             System.out.print("ID-ul persoanei de sters: ");
@@ -184,6 +199,7 @@ public class Console {
         }
     }
 
+    // Handler for deleting an apartment
     private void handleDeleteApartment() {
         try {
             System.out.print("ID-ul apartamentului de sters: ");
@@ -195,6 +211,7 @@ public class Console {
         }
     }
 
+    // Handler for displaying people
     private void handleShowPeople() {
         try {
             System.out.println("\n" + this.service.generatePeopleTable());
@@ -203,6 +220,7 @@ public class Console {
         }
     }
 
+    // Handler for displaying apartments
     private void handleShowApartments() {
         try {
             System.out.println("\n" + this.service.generateApartmentsTable());
@@ -211,6 +229,7 @@ public class Console {
         }
     }
 
+    // Handler for displaying tax information
     private void handleShowTaxes() {
         try {
             System.out.print("Dati luna (nr): ");
@@ -227,6 +246,7 @@ public class Console {
         }
     }
 
+    // Handler for displaying events
     private void handleShowInfo() {
         try {
             System.out.println("\n" + this.service.generateInfoTable());

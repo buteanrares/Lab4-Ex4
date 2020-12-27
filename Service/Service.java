@@ -8,14 +8,31 @@ import java.util.Random;
 
 public class Service {
 
+    // Service fields
     private Repository repository;
     private ModelValidator modelValidator;
 
+    /**
+     * Parameterized constructor. Parameters are self-explanatory
+     * 
+     * @param repository
+     * @param modelValidator
+     */
     public Service(Repository repository, ModelValidator modelValidator) {
         this.repository = repository;
         this.modelValidator = modelValidator;
     }
 
+    /**
+     * Creates a person and sends it to repository for further processing.
+     * Parameters are self-explanatory
+     * 
+     * @param forename
+     * @param surname
+     * @param noApartment
+     * @param birthdate
+     * @param job
+     */
     public void createPerson(String forename, String surname, int noApartment, String birthdate, String job) {
         Person person = new Person(generatePersonID(), forename, surname, noApartment, birthdate, job);
 
@@ -23,6 +40,15 @@ public class Service {
         this.repository.create(person);
     }
 
+    /**
+     * Creates an apartment and sends it to repository for further processing.
+     * Parameters are self-explanatory
+     * 
+     * @param noApartment
+     * @param owner
+     * @param noResidents
+     * @param surface
+     */
     public void createApartment(int noApartment, String owner, int noResidents, int surface) {
         Apartment apartment = new Apartment(generateApartmentID(), noApartment, owner, noResidents, surface);
 
@@ -30,14 +56,37 @@ public class Service {
         this.repository.create(apartment);
     }
 
+    /**
+     * Reads a specific person
+     * 
+     * @param ID person's identifier
+     * @return person with that ID
+     */
     public Person getPerson(int ID) {
         return this.repository.getPerson(ID);
     }
 
+    /**
+     * Reads a specific apartment
+     * 
+     * @param ID apartment's identifier
+     * @return apartment with that ID
+     */
     public Apartment getApartment(int ID) {
         return this.repository.getApartment(ID);
     }
 
+    /**
+     * Updates a person and sends it to repository for further processing.
+     * Parameters are self-explanatory
+     * 
+     * @param ID
+     * @param newForename
+     * @param newSurname
+     * @param newNoApartment
+     * @param newBirthdate
+     * @param newJob
+     */
     public void updatePerson(int ID, String newForename, String newSurname, int newNoApartment, String newBirthdate,
             String newJob) {
         Person person = new Person(ID, newForename, newSurname, newNoApartment, newBirthdate, newJob);
@@ -46,6 +95,16 @@ public class Service {
         this.repository.update(ID, person);
     }
 
+    /**
+     * Updates an apartment and sends it to repository for further processing.
+     * Parameters are self-explanatory
+     * 
+     * @param ID
+     * @param newNoApartment
+     * @param newOwner
+     * @param newNoResidents
+     * @param newSurface
+     */
     public void updateApartment(int ID, int newNoApartment, String newOwner, int newNoResidents, int newSurface) {
         Apartment apartment = new Apartment(ID, newNoApartment, newOwner, newNoResidents, newSurface);
 
@@ -53,14 +112,29 @@ public class Service {
         this.repository.update(ID, apartment);
     }
 
+    /**
+     * Deletes a person by ID, calling repository
+     * 
+     * @param ID person's ID
+     */
     public void deletePerson(int ID) {
         this.repository.deletePerson(ID);
     }
 
+    /**
+     * Deletes an apartment by ID, calling repository
+     * 
+     * @param ID
+     */
     public void deleteApartment(int ID) {
         this.repository.deleteApartment(ID);
     }
 
+    /**
+     * Generates a available ID for a new person
+     * 
+     * @return person available ID
+     */
     private int generatePersonID() {
         int ID = 0;
         while (repository.getPerson(ID) != null) {
@@ -69,6 +143,11 @@ public class Service {
         return ID;
     }
 
+    /**
+     * Generates a available ID for a new apartment
+     * 
+     * @return apartment available ID
+     */
     private int generateApartmentID() {
         int ID = 0;
         while (repository.getApartment(ID) != null) {
@@ -77,9 +156,14 @@ public class Service {
         return ID;
     }
 
+    /**
+     * Generates a table-like String containing person information
+     * 
+     * @return table-like String
+     */
     public String generatePeopleTable() {
         String header = String.format("%-5s | %-15s | %-15s | %-20s | %-15s | %-15s", "ID", "Nume", "Prenume",
-                "Nr. apartament", "Zi nstere", "Job");
+                "Nr. apartament", "Zi nastere", "Job");
         String output = header + "\n";
         for (Person person : this.repository.getPeople()) {
             String formattedPerson = String.format("%-5s | %-15s | %-15s | %20s | %-15s | %-15s", person.getID(),
@@ -90,6 +174,11 @@ public class Service {
         return output;
     }
 
+    /**
+     * Generates a table-like String containing apartment information
+     * 
+     * @return table-like String
+     */
     public String generateApartmentsTable() {
         String header = String.format("%-5s | %-20s | %-25s | %-13s | %-9s", "ID", "Nr. apartament", "Proprietar",
                 "Nr. locatari", "Suprafata");
@@ -103,6 +192,14 @@ public class Service {
         return output;
     }
 
+    /**
+     * Generates a table-like String containing tax information for each inhabited
+     * apartment
+     * 
+     * @param month - int, seed for random nuber generator and the month to generate
+     *              taxes for
+     * @return table-like String
+     */
     public String generateTaxesTable(int month) {
         Random RNG = new Random(month);
         int[] internetTaxArray = { 60, 65, 70, 75, 80, 85 };
@@ -136,6 +233,11 @@ public class Service {
         return output;
     }
 
+    /**
+     * Generates a table-like String containing events from the block of flats
+     * 
+     * @return table-like String
+     */
     public String generateInfoTable() {
         int currentInfo = 1;
         String header = String.format("%-7s | %-35s", "Nr. Crt", "Descriere");

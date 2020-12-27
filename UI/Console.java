@@ -1,5 +1,6 @@
 package UI;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import Service.Service;
@@ -211,7 +212,19 @@ public class Console {
     }
 
     private void handleShowTaxes() {
-        // TODO
+        try {
+            System.out.print("Dati luna (nr): ");
+            int month = this.scan.nextInt();
+
+            if (month < 1 && month > 12)
+                throw new IllegalArgumentException();
+
+            System.out.println("\n" + this.service.generateTaxesTable(month));
+        } catch (InputMismatchException e) {
+            System.out.println("Informatia data nu poate fi convertita intr-un numar.");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Dati un numar de la 1 la 12.");
+        }
     }
 
     private void handleShowInfo() {

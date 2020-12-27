@@ -20,3 +20,9 @@ public class Program {
     }
 
 }
+
+// FIXME: Tax table values RNG seed is not working
+
+// TODO: Document every method
+// TODO: Find some bugs.
+// TODO: Fix CRUD interactions between Person-Apartment

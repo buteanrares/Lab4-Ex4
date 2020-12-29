@@ -31,7 +31,7 @@ public class Repository {
      * @throws IOException if file does not exist / cannot be accessed / written
      *                     into
      */
-    private void savePeople() throws IOException {
+    private void savePeople() {
         String peopleFilePath = this.dbFilePath + "\\people.csv";
         try (BufferedWriter bWriter = new BufferedWriter(new FileWriter(peopleFilePath))) {
             for (Person p : people) {
@@ -48,7 +48,7 @@ public class Repository {
      * @throws IOException if file does not exist / cannot be accessed / written
      *                     into
      */
-    private void saveApartments() throws IOException {
+    private void saveApartments() {
         String apartmentsFilePath = this.dbFilePath + "\\apartments.csv";
         try (BufferedWriter bWriter = new BufferedWriter(new FileWriter(apartmentsFilePath))) {
             for (Apartment a : apartments) {
@@ -95,12 +95,8 @@ public class Repository {
      * @param p person to be created
      */
     public void create(Person p) {
-        try {
-            this.people.add(p);
-            this.savePeople();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.people.add(p.getID(), p);
+        this.savePeople();
     }
 
     /**
@@ -109,12 +105,8 @@ public class Repository {
      * @param a apartment to be created
      */
     public void create(Apartment a) {
-        try {
-            this.apartments.add(a);
-            this.saveApartments();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.apartments.add(a.getID(), a);
+        this.saveApartments();
     }
 
     /**
@@ -124,11 +116,7 @@ public class Repository {
      * @return Person with that ID
      */
     public Person getPerson(int ID) {
-        try {
-            return this.people.get(ID);
-        } catch (IndexOutOfBoundsException e) {
-            return null;
-        }
+        return this.people.get(ID);
     }
 
     /**
@@ -171,11 +159,7 @@ public class Repository {
      */
     public void update(int ID, Person p) {
         this.people.set(ID, p);
-        try {
-            this.savePeople();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.savePeople();
     }
 
     /**
@@ -186,12 +170,7 @@ public class Repository {
      */
     public void update(int ID, Apartment a) {
         this.apartments.set(ID, a);
-        try {
-            this.saveApartments();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        this.saveApartments();
     }
 
     /**
@@ -201,11 +180,7 @@ public class Repository {
      */
     public void deletePerson(int ID) {
         this.people.remove(ID);
-        try {
-            this.savePeople();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.savePeople();
     }
 
     /**
@@ -215,11 +190,7 @@ public class Repository {
      */
     public void deleteApartment(int ID) {
         this.apartments.remove(ID);
-        try {
-            this.saveApartments();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.saveApartments();
     }
 
 }

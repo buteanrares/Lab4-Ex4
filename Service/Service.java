@@ -219,7 +219,7 @@ public class Service {
             double residentsMultiplier = apartment.getNoResidents() * 0.08;
             double surfaceMultiplier = apartment.getSurface() * 0.04;
 
-            int gasTax = (int) (120 * randomMultiplier * apartmentMultiplier * residentsMultiplier * surfaceMultiplier);
+            int gasTax = (int) (120 * randomMultiplier * apartmentMultiplier * surfaceMultiplier);
             int maintenanceTax = 50;
             int waterTax = (int) (340 * randomMultiplier * apartmentMultiplier * residentsMultiplier);
             int electricityTax = (int) (110 * randomMultiplier * apartmentMultiplier * residentsMultiplier);

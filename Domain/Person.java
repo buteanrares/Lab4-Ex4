@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 public class Person {
 
     // Person's fields
-    private int ID;
+    private Integer ID;
     private String forename;
     private String surname;
     private int noApartment;
@@ -36,7 +36,7 @@ public class Person {
      * @param birthdate
      * @param job
      */
-    public Person(int ID, String forename, String surname, int noApartment, String birthdate, String job) {
+    public Person(Integer ID, String forename, String surname, int noApartment, String birthdate, String job) {
         String format = "yyyy-MM-dd";
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern(format);
 
@@ -70,7 +70,7 @@ public class Person {
      * 
      * @return person's ID
      */
-    public int getID() {
+    public Integer getID() {
         return this.ID;
     }
 

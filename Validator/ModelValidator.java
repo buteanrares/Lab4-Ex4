@@ -6,7 +6,7 @@ import Domain.Apartment;
 
 public class ModelValidator {
     public ModelValidator() {
-
+        // pass
     }
 
     public ArrayList<String> validate(Person person) {

@@ -3,7 +3,7 @@ package Domain;
 public class Apartment {
 
     // Apartment's fields
-    private int ID;
+    private Integer ID;
     private int noApartment;
     private String owner;
     private int noResidents;
@@ -27,7 +27,7 @@ public class Apartment {
      * @param noResidents
      * @param surface
      */
-    public Apartment(int ID, int noApartment, String owner, int noResidents, int surface) {
+    public Apartment(Integer ID, int noApartment, String owner, int noResidents, int surface) {
         this.ID = ID;
         this.noApartment = noApartment;
         this.owner = owner;
@@ -53,7 +53,7 @@ public class Apartment {
      * 
      * @return apartment's ID
      */
-    public int getID() {
+    public Integer getID() {
         return this.ID;
     }
 

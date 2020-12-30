@@ -62,7 +62,7 @@ public class Service {
      * @param ID person's identifier
      * @return person with that ID
      */
-    public Person getPerson(int ID) {
+    public Person getPerson(Integer ID) {
         return this.repository.getPerson(ID);
     }
 
@@ -72,7 +72,7 @@ public class Service {
      * @param ID apartment's identifier
      * @return apartment with that ID
      */
-    public Apartment getApartment(int ID) {
+    public Apartment getApartment(Integer ID) {
         return this.repository.getApartment(ID);
     }
 
@@ -87,7 +87,7 @@ public class Service {
      * @param newBirthdate
      * @param newJob
      */
-    public void updatePerson(int ID, String newForename, String newSurname, int newNoApartment, String newBirthdate,
+    public void updatePerson(Integer ID, String newForename, String newSurname, int newNoApartment, String newBirthdate,
             String newJob) {
         Person person = new Person(ID, newForename, newSurname, newNoApartment, newBirthdate, newJob);
 
@@ -105,7 +105,7 @@ public class Service {
      * @param newNoResidents
      * @param newSurface
      */
-    public void updateApartment(int ID, int newNoApartment, String newOwner, int newNoResidents, int newSurface) {
+    public void updateApartment(Integer ID, int newNoApartment, String newOwner, int newNoResidents, int newSurface) {
         Apartment apartment = new Apartment(ID, newNoApartment, newOwner, newNoResidents, newSurface);
 
         this.modelValidator.validate(apartment);
@@ -117,7 +117,7 @@ public class Service {
      * 
      * @param ID person's ID
      */
-    public void deletePerson(int ID) {
+    public void deletePerson(Integer ID) {
         this.repository.deletePerson(ID);
     }
 
@@ -126,7 +126,7 @@ public class Service {
      * 
      * @param ID
      */
-    public void deleteApartment(int ID) {
+    public void deleteApartment(Integer ID) {
         this.repository.deleteApartment(ID);
     }
 
@@ -135,9 +135,9 @@ public class Service {
      * 
      * @return person available ID
      */
-    private int generatePersonID() {
+    private Integer generatePersonID() {
         int ID = 0;
-        while (repository.getPerson(ID) != null) {
+        while (this.repository.getPerson(ID) != null) {
             ID++;
         }
         return ID;
@@ -148,9 +148,9 @@ public class Service {
      * 
      * @return apartment available ID
      */
-    private int generateApartmentID() {
+    private Integer generateApartmentID() {
         int ID = 0;
-        while (repository.getApartment(ID) != null) {
+        while (this.repository.getApartment(ID) != null) {
             ID++;
         }
         return ID;
@@ -165,7 +165,7 @@ public class Service {
         String header = String.format("%-5s | %-15s | %-15s | %-20s | %-15s | %-15s", "ID", "Nume", "Prenume",
                 "Nr. apartament", "Zi nastere", "Job");
         String output = header + "\n";
-        for (Person person : this.repository.getPeople()) {
+        for (Person person : this.repository.getPeople().values()) {
             String formattedPerson = String.format("%-5s | %-15s | %-15s | %20s | %-15s | %-15s", person.getID(),
                     person.getSurname(), person.getForename(), person.getNoApartment(), person.getBirhtdate(),
                     person.getJob());
@@ -183,7 +183,7 @@ public class Service {
         String header = String.format("%-5s | %-20s | %-25s | %-13s | %-9s", "ID", "Nr. apartament", "Proprietar",
                 "Nr. locatari", "Suprafata");
         String output = header + "\n";
-        for (Apartment apartment : this.repository.getApartments()) {
+        for (Apartment apartment : this.repository.getApartments().values()) {
             String formattedApartment = String.format("%-5s | %20s | %-25s | %13s | %9s", apartment.getID(),
                     apartment.getNoApartment(), apartment.getOwner(), apartment.getNoResidents(),
                     apartment.getSurface());
@@ -208,7 +208,7 @@ public class Service {
                 "Proprietar", "Gaz", "Mentenanta bloc", "Apa", "Curent", "Internet", "Total");
         String output = header + "\n";
 
-        for (Apartment apartment : this.repository.getApartments()) {
+        for (Apartment apartment : this.repository.getApartments().values()) {
             if (apartment.getOwner().equals("fara"))
                 continue;
 
@@ -242,14 +242,14 @@ public class Service {
         int currentInfo = 1;
         String header = String.format("%-7s | %-35s", "Nr. Crt", "Descriere");
         String output = header + "\n";
-        for (Person person : this.repository.getPeople()) {
+        for (Person person : this.repository.getPeople().values()) {
             if (person.getJob().equals("pensionar") || person.getJob().equals("somer")) {
                 String description = "Locatarul " + person.getSurname() + " " + person.getForename() + " este "
                         + person.getJob();
                 output += String.format("%-7d | %-35s", currentInfo++, description) + "\n";
             }
         }
-        for (Apartment apartment : this.repository.getApartments()) {
+        for (Apartment apartment : this.repository.getApartments().values()) {
             if (apartment.getOwner().equals("fara")) {
                 String description = "Apartamentul " + apartment.getNoApartment() + " este de vanzare";
                 output += String.format("%-7d | %-35s", currentInfo++, description) + "\n";

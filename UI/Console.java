@@ -142,7 +142,9 @@ public class Console {
     private void handleUpdatePerson() {
         try {
             System.out.print("ID-ul persoanei de modificat: ");
-            int ID = this.scan.nextInt();
+            Integer ID = this.scan.nextInt();
+            if (this.service.getPerson(ID) == null)
+                throw new NumberFormatException();
 
             System.out.println("Dati atributele persoanei conform modelului");
             System.out.println("prenume,nume,nr. apartament,zi nastere,job");
@@ -166,7 +168,7 @@ public class Console {
     private void handleUpdateApartment() {
         try {
             System.out.print("ID-ul apartamentului de modificat: ");
-            int ID = this.scan.nextInt();
+            Integer ID = this.scan.nextInt();
 
             System.out.println("Dati atributele apartamentului conform modelului");
             System.out.println("nr. apartament,proprietar,suprafata");
@@ -191,11 +193,13 @@ public class Console {
     private void handleDeletePerson() {
         try {
             System.out.print("ID-ul persoanei de sters: ");
-            int ID = this.scan.nextInt();
+            Integer ID = this.scan.nextInt();
+            if (this.service.getPerson(ID) == null)
+                throw new NumberFormatException();
 
             this.service.deletePerson(ID);
         } catch (NumberFormatException e) {
-            System.out.println("ID inexistent sau invalid.");
+            System.out.println("Persoana cu ID-ul dat nu exista");
         }
     }
 
@@ -203,11 +207,13 @@ public class Console {
     private void handleDeleteApartment() {
         try {
             System.out.print("ID-ul apartamentului de sters: ");
-            int ID = this.scan.nextInt();
+            Integer ID = this.scan.nextInt();
+            if (this.service.getApartment(ID) == null)
+                throw new NumberFormatException();
 
             this.service.deleteApartment(ID);
         } catch (NumberFormatException e) {
-            System.out.println("ID inexistent sau invalid.");
+            System.out.println("Apartamentul cu ID-ul dat nu exista.");
         }
     }
 

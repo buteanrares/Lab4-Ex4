@@ -204,7 +204,7 @@ public class Service {
         Random RNG = new Random(month);
         int[] internetTaxArray = { 60, 65, 70, 75, 80, 85 };
 
-        String header = String.format("%-17s | %-20s | %-6s | %-15s | %-6s | %-7s | %-8s | %-6s", "Nr. apartament",
+        String header = String.format("%-14s | %-20s | %-6s | %-15s | %-6s | %-7s | %-8s | %-6s", "Nr. apartament",
                 "Proprietar", "Gaz", "Mentenanta bloc", "Apa", "Curent", "Internet", "Total");
         String output = header + "\n";
 
@@ -214,19 +214,18 @@ public class Service {
 
             Random apartmentRNG = new Random(apartment.getID());
 
-            double randomMultiplier = (double) (RNG.nextInt(8) + 4) / (double) 10;
-            double apartmentMultiplier = (double) (apartmentRNG.nextInt(8) + 4) / (double) 10;
-            double residentsMultiplier = apartment.getNoResidents() * 0.08;
-            double surfaceMultiplier = apartment.getSurface() * 0.04;
-
-            int gasTax = (int) (120 * randomMultiplier * apartmentMultiplier * surfaceMultiplier);
+            double randomMultiplier = (double) (RNG.nextInt(7) + 7) / (double) 10;
+            double apartmentMultiplier = (double) (apartmentRNG.nextInt(7) + 7) / (double) 10;
+            double residentsMultiplier = apartment.getNoResidents() * 0.5;
+            double surfaceMultiplier = apartment.getSurface() * 0.01;
+            int gasTax = (int) (85 * randomMultiplier * apartmentMultiplier * surfaceMultiplier);
             int maintenanceTax = 50;
-            int waterTax = (int) (340 * randomMultiplier * apartmentMultiplier * residentsMultiplier);
-            int electricityTax = (int) (110 * randomMultiplier * apartmentMultiplier * residentsMultiplier);
+            int waterTax = (int) (60 * randomMultiplier * apartmentMultiplier * residentsMultiplier);
+            int electricityTax = (int) (90 * randomMultiplier * apartmentMultiplier * residentsMultiplier);
             int internetTax = internetTaxArray[apartmentRNG.nextInt(internetTaxArray.length)];
             int total = gasTax + maintenanceTax + waterTax + electricityTax + internetTax;
 
-            output += String.format("%-17s | %-20s | %6s | %15s | %6s | %7s | %8s | %6s", apartment.getNoApartment(),
+            output += String.format("%14s | %-20s | %6s | %15s | %6s | %7s | %8s | %6s", apartment.getNoApartment(),
                     apartment.getOwner(), gasTax, maintenanceTax, waterTax, electricityTax, internetTax, total) + "\n";
         }
 

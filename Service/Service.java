@@ -2,15 +2,20 @@ package Service;
 
 import Containers.Repository;
 import Domain.Person;
+import Exceptions.ModelException;
 import Domain.Apartment;
 import Validator.ModelValidator;
+
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Random;
+
 
 public class Service {
 
     // Service fields
     private Repository repository;
-    private ModelValidator modelValidator;
+    private ModelValidator modelValidator = new ModelValidator(this);
 
     /**
      * Parameterized constructor. Parameters are self-explanatory
@@ -18,10 +23,10 @@ public class Service {
      * @param repository
      * @param modelValidator
      */
-    public Service(Repository repository, ModelValidator modelValidator) {
+    public Service(Repository repository) {
         this.repository = repository;
-        this.modelValidator = modelValidator;
     }
+
 
     /**
      * Creates a person and sends it to repository for further processing.
@@ -33,12 +38,20 @@ public class Service {
      * @param birthdate
      * @param job
      */
-    public void createPerson(String forename, String surname, int noApartment, String birthdate, String job) {
+    public void createPerson(String forename, String surname, int noApartment, String birthdate, String job)
+            throws ModelException {
         Person person = new Person(generatePersonID(), forename, surname, noApartment, birthdate, job);
 
         this.modelValidator.validate(person);
         this.repository.create(person);
+
+        Apartment apartment = this.getApartmentByNumber(person.getNoApartment());
+        if (apartment.getOwner().equals("fara"))
+            apartment.setOwner(person.getForename() + " " + person.getSurname());
+        apartment.setNoResidents(apartment.getNoResidents() + 1);
+        this.repository.update(apartment.getID(), apartment);
     }
+
 
     /**
      * Creates an apartment and sends it to repository for further processing.
@@ -49,32 +62,46 @@ public class Service {
      * @param noResidents
      * @param surface
      */
-    public void createApartment(int noApartment, String owner, int noResidents, int surface) {
+    public void createApartment(int noApartment, String owner, int noResidents, int surface) throws ModelException {
         Apartment apartment = new Apartment(generateApartmentID(), noApartment, owner, noResidents, surface);
 
         this.modelValidator.validate(apartment);
         this.repository.create(apartment);
     }
 
+
     /**
      * Reads a specific person
      * 
-     * @param ID person's identifier
+     * @param ID
+     *               person's identifier
      * @return person with that ID
      */
     public Person getPerson(Integer ID) {
         return this.repository.getPerson(ID);
     }
 
+
     /**
      * Reads a specific apartment
      * 
-     * @param ID apartment's identifier
+     * @param ID
+     *               apartment's identifier
      * @return apartment with that ID
      */
     public Apartment getApartment(Integer ID) {
         return this.repository.getApartment(ID);
     }
+
+
+    public Apartment getApartmentByNumber(int noApartment) {
+        for (Apartment apartment : this.repository.getApartments().values()) {
+            if (apartment.getNoApartment() == noApartment)
+                return apartment;
+        }
+        return new Apartment();
+    }
+
 
     /**
      * Updates a person and sends it to repository for further processing.
@@ -88,12 +115,32 @@ public class Service {
      * @param newJob
      */
     public void updatePerson(Integer ID, String newForename, String newSurname, int newNoApartment, String newBirthdate,
-            String newJob) {
+            String newJob) throws ModelException {
+
+        Person oldPerson = this.repository.getPerson(ID);
         Person person = new Person(ID, newForename, newSurname, newNoApartment, newBirthdate, newJob);
 
         this.modelValidator.validate(person);
         this.repository.update(ID, person);
+
+        if (oldPerson.getNoApartment() != person.getNoApartment()) {
+            Apartment oldApartment = this.getApartmentByNumber(oldPerson.getNoApartment());
+            Apartment newApartment = this.getApartmentByNumber(person.getNoApartment());
+
+            oldApartment.setNoResidents(oldApartment.getNoResidents() - 1);
+            newApartment.setNoResidents(newApartment.getNoResidents() + 1);
+
+            if (oldApartment.getOwner().equals(oldPerson.getForename() + " " + oldPerson.getSurname()))
+                oldApartment.setOwner(this.findNewOwner(oldApartment, oldPerson));
+
+            if (newApartment.getOwner().equals("fara"))
+                newApartment.setOwner(person.getForename() + " " + person.getSurname());
+
+            this.repository.update(oldApartment.getID(), oldApartment);
+            this.repository.update(newApartment.getID(), newApartment);
+        }
     }
+
 
     /**
      * Updates an apartment and sends it to repository for further processing.
@@ -105,21 +152,60 @@ public class Service {
      * @param newNoResidents
      * @param newSurface
      */
-    public void updateApartment(Integer ID, int newNoApartment, String newOwner, int newNoResidents, int newSurface) {
+    public void updateApartment(Integer ID, int newNoApartment, String newOwner, int newNoResidents, int newSurface)
+            throws ModelException {
+        Apartment oldApartment = this.getApartment(ID);
         Apartment apartment = new Apartment(ID, newNoApartment, newOwner, newNoResidents, newSurface);
 
         this.modelValidator.validate(apartment);
+
+        if (oldApartment.getNoApartment() != apartment.getNoApartment()) {
+            Collection<Person> peopleCopy = this.repository.getPeople().values();
+            for (Person person : peopleCopy) {
+                if (person.getNoApartment() == oldApartment.getNoApartment()) {
+                    person.setNoApartment(newNoApartment);
+                    this.repository.update(person.getID(), person);
+                }
+            }
+        }
+
+        if (!oldApartment.getOwner().equals(apartment.getOwner())) {
+            for (Person p : this.repository.getPeople().values()) {
+                if (oldApartment.getOwner().equals(p.getForename() + " " + p.getSurname())) {
+                    p.setNoApartment(apartment.getNoApartment());
+
+                    oldApartment.setNoResidents(oldApartment.getNoResidents() - 1);
+                    oldApartment.setOwner(this.findNewOwner(oldApartment, p));
+
+                    apartment.setNoResidents(newNoResidents + 1);
+                }
+            }
+        }
+
         this.repository.update(ID, apartment);
     }
+
 
     /**
      * Deletes a person by ID, calling repository
      * 
-     * @param ID person's ID
+     * @param ID
+     *               person's ID
      */
     public void deletePerson(Integer ID) {
+        Person deletedPerson = this.repository.getPerson(ID);
+
         this.repository.deletePerson(ID);
+
+        Apartment apartment = this.getApartmentByNumber(deletedPerson.getNoApartment());
+        if (apartment.getOwner().equals(deletedPerson.getForename() + " " + deletedPerson.getSurname())) {
+            apartment.setOwner(this.findNewOwner(apartment, deletedPerson));
+        }
+        apartment.setNoResidents(apartment.getNoResidents() - 1);
+
+        this.repository.update(apartment.getID(), apartment);
     }
+
 
     /**
      * Deletes an apartment by ID, calling repository
@@ -127,8 +213,17 @@ public class Service {
      * @param ID
      */
     public void deleteApartment(Integer ID) {
+        Apartment deletedApartment = this.repository.getApartment(ID);
+
         this.repository.deleteApartment(ID);
+
+        Collection<Person> peopleCopy = this.repository.getPeople().values();
+        for (Person person : peopleCopy) {
+            if (person.getNoApartment() == deletedApartment.getNoApartment())
+                this.repository.deletePerson(person.getID());
+        }
     }
+
 
     /**
      * Generates a available ID for a new person
@@ -143,6 +238,7 @@ public class Service {
         return ID;
     }
 
+
     /**
      * Generates a available ID for a new apartment
      * 
@@ -155,6 +251,7 @@ public class Service {
         }
         return ID;
     }
+
 
     /**
      * Generates a table-like String containing person information
@@ -174,6 +271,7 @@ public class Service {
         return output;
     }
 
+
     /**
      * Generates a table-like String containing apartment information
      * 
@@ -192,12 +290,14 @@ public class Service {
         return output;
     }
 
+
     /**
      * Generates a table-like String containing tax information for each inhabited
      * apartment
      * 
-     * @param month - int, seed for random nuber generator and the month to generate
-     *              taxes for
+     * @param month
+     *                  - int, seed for random nuber generator and the month to
+     *                  generate taxes for
      * @return table-like String
      */
     public String generateTaxesTable(int month) {
@@ -232,6 +332,7 @@ public class Service {
         return output;
     }
 
+
     /**
      * Generates a table-like String containing events from the block of flats
      * 
@@ -255,5 +356,19 @@ public class Service {
             }
         }
         return output;
+    }
+
+
+    private String findNewOwner(Apartment apartment, Person exOwner) {
+        Collection<Person> people = this.repository.getPeople().values();
+        people.remove(exOwner);
+
+        for (Person person : people) {
+            // TODO Verify eligibility of apartment ownership
+            if (person.getNoApartment() == apartment.getNoApartment()) {
+                return person.getForename() + " " + person.getSurname();
+            }
+        }
+        return "fara";
     }
 }

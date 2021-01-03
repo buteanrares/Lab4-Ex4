@@ -11,6 +11,7 @@ import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class Repository {
 
     // Repository fields
@@ -21,18 +22,22 @@ public class Repository {
     /**
      * Parameterized constructor
      * 
-     * @param dbFilePath - String representing the filepath to a database folder.
+     * @param dbFilePath
+     *                       - String representing the filepath to a database
+     *                       folder.
      * @note - The folder must contain two files named apartment.csv and people.csv
      */
     public Repository(String dbFilePath) {
         this.dbFilePath = dbFilePath;
     }
 
+
     /**
      * Appends memory-saved data of people into the people.csv file
      * 
-     * @throws IOException if file does not exist / cannot be accessed / written
-     *                     into
+     * @throws IOException
+     *                         if file does not exist / cannot be accessed / written
+     *                         into
      */
     private void savePeople() {
         String peopleFilePath = this.dbFilePath + "\\people.csv";
@@ -45,11 +50,13 @@ public class Repository {
         }
     }
 
+
     /**
      * Appends memory-saved data of apartments into the apartments.csv file
      * 
-     * @throws IOException if file does not exist / cannot be accessed / written
-     *                     into
+     * @throws IOException
+     *                         if file does not exist / cannot be accessed / written
+     *                         into
      */
     private void saveApartments() {
         String apartmentsFilePath = this.dbFilePath + "\\apartments.csv";
@@ -62,10 +69,12 @@ public class Repository {
         }
     }
 
+
     /**
      * Loads data from Database folder into memory
      * 
-     * @throws IOException if files do not exist / cannot be accessed
+     * @throws IOException
+     *                         if files do not exist / cannot be accessed
      */
     public void loadFromFile() throws IOException {
         String peopleFilePath = this.dbFilePath + "\\people.csv";
@@ -92,45 +101,54 @@ public class Repository {
         }
     }
 
+
     /**
      * Creates and saves a person
      * 
-     * @param p person to be created
+     * @param p
+     *              person to be created
      */
     public void create(Person p) {
         this.people.put(p.getID(), p);
         this.savePeople();
     }
 
+
     /**
      * Creates and saves a apartment
      * 
-     * @param a apartment to be created
+     * @param a
+     *              apartment to be created
      */
     public void create(Apartment a) {
         this.apartments.put(a.getID(), a);
         this.saveApartments();
     }
 
+
     /**
      * Reads a person saved in memory
      * 
-     * @param ID person's identifier
+     * @param ID
+     *               person's identifier
      * @return Person with that ID
      */
     public Person getPerson(Integer ID) {
         return this.people.get(ID);
     }
 
+
     /**
      * Reads an apartment saved in memory
      * 
-     * @param ID apartment's identifier
+     * @param ID
+     *               apartment's identifier
      * @return Apartment with that ID
      */
     public Apartment getApartment(Integer ID) {
         return this.apartments.get(ID);
     }
+
 
     /**
      * Getter for the list of people
@@ -141,6 +159,7 @@ public class Repository {
         return this.people;
     }
 
+
     /**
      * Getter for the list of apartments
      * 
@@ -150,42 +169,52 @@ public class Repository {
         return this.apartments;
     }
 
+
     /**
      * Updates a person and saves changes
      * 
-     * @param ID person to be replaced identifier
-     * @param p  new person
+     * @param ID
+     *               person to be replaced identifier
+     * @param p
+     *               new person
      */
     public void update(Integer ID, Person p) {
         this.people.put(ID, p);
         this.savePeople();
     }
 
+
     /**
      * Updates an apartment and saves changes
      * 
-     * @param ID apartment to be replaced identifier
-     * @param a  new apartment
+     * @param ID
+     *               apartment to be replaced identifier
+     * @param a
+     *               new apartment
      */
     public void update(Integer ID, Apartment a) {
         this.apartments.put(ID, a);
         this.saveApartments();
     }
 
+
     /**
      * Deletes a person and saves changes
      * 
-     * @param ID person's identifier
+     * @param ID
+     *               person's identifier
      */
     public void deletePerson(Integer ID) {
         this.people.remove(ID);
         this.savePeople();
     }
 
+
     /**
      * Deletes an apartment and saves changes
      * 
-     * @param ID apartment's identifier
+     * @param ID
+     *               apartment's identifier
      */
     public void deleteApartment(Integer ID) {
         this.apartments.remove(ID);

@@ -3,6 +3,7 @@ package Domain;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+
 public class Person {
 
     // Person's fields
@@ -26,6 +27,7 @@ public class Person {
         this.job = "nojob";
     }
 
+
     /**
      * Parameterized constructor. Parameters are self explanatory
      * 
@@ -48,10 +50,12 @@ public class Person {
         this.job = job;
     }
 
+
     /**
      * Parameterized constructor
      * 
-     * @param data - String Array containing a person's data
+     * @param data
+     *                 - String Array containing a person's data
      */
     public Person(String[] data) {
         String format = "yyyy-MM-dd";
@@ -65,6 +69,7 @@ public class Person {
         this.job = data[5];
     }
 
+
     /**
      * Getter for ID
      * 
@@ -73,6 +78,7 @@ public class Person {
     public Integer getID() {
         return this.ID;
     }
+
 
     /**
      * Getter for forename
@@ -83,14 +89,17 @@ public class Person {
         return this.forename;
     }
 
+
     /**
      * Setter for forename
      * 
-     * @param newForename Person's new forename
+     * @param newForename
+     *                        Person's new forename
      */
     public void setForename(String newForename) {
         this.forename = newForename;
     }
+
 
     /**
      * Getter for surname
@@ -101,14 +110,17 @@ public class Person {
         return this.surname;
     }
 
+
     /**
      * Setter for surname
      * 
-     * @param newSurname Person's new surname
+     * @param newSurname
+     *                       Person's new surname
      */
     public void setSurname(String newSurname) {
         this.surname = newSurname;
     }
+
 
     /**
      * Getter for person's apartment number
@@ -119,14 +131,17 @@ public class Person {
         return this.noApartment;
     }
 
+
     /**
      * Setter for person's apartment number
      * 
-     * @param newNoApartment person's new apartment number
+     * @param newNoApartment
+     *                           person's new apartment number
      */
     public void setNoApartment(int newNoApartment) {
         this.noApartment = newNoApartment;
     }
+
 
     /**
      * Getter for person's birthdate
@@ -137,14 +152,17 @@ public class Person {
         return this.birthdate;
     }
 
+
     /**
      * Setter for person's birthdate
      * 
-     * @param newBirthdate person's new birthdate
+     * @param newBirthdate
+     *                         person's new birthdate
      */
     public void setBirthdate(LocalDate newBirthdate) {
         this.birthdate = newBirthdate;
     }
+
 
     /**
      * Getter for person's job
@@ -155,14 +173,17 @@ public class Person {
         return this.job;
     }
 
+
     /**
      * Setter for person's job
      * 
-     * @param newJob person's new job
+     * @param newJob
+     *                   person's new job
      */
     public void setJob(String newJob) {
         this.job = newJob;
     }
+
 
     /**
      * Checks if a person is over 18 years old
@@ -173,6 +194,7 @@ public class Person {
         LocalDate now = LocalDate.now();
         return this.birthdate.isBefore(now.minusYears(18));
     }
+
 
     /**
      * Converts person's data into a CSV type String

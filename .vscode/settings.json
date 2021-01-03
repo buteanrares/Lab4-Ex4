@@ -1,5 +1,9 @@
 {
     "editor.minimap.maxColumn": 70,
     "java.implementationsCodeLens.enabled": true,
-    "java.referencesCodeLens.enabled": true
+    "java.referencesCodeLens.enabled": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "files.insertFinalNewline": true,
+    "java.format.settings.url": "eclipse-formatter.xml"
 }

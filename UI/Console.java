@@ -1,9 +1,12 @@
 package UI;
 
+import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import Exceptions.ModelException;
 import Service.Service;
+
 
 public class Console {
 
@@ -20,11 +23,13 @@ public class Console {
         this.service = service;
     }
 
+
     // Driver method for Console class
     public void run() {
         handleShowMenu();
         this.handleOption();
     }
+
 
     // Displays menu containing available options
     private static void handleShowMenu() {
@@ -42,6 +47,7 @@ public class Console {
         System.out.println("11. Inchide");
     }
 
+
     // Handles user's option selection
     private void handleOption() {
         String option = "0";
@@ -51,43 +57,44 @@ public class Console {
             option = this.scan.next();
 
             switch (option) {
-                case "1":
-                    this.handleAddPerson();
-                    break;
-                case "2":
-                    this.handleAddApartment();
-                    break;
-                case "3":
-                    this.handleUpdatePerson();
-                    break;
-                case "4":
-                    this.handleUpdateApartment();
-                    break;
-                case "5":
-                    this.handleDeletePerson();
-                    break;
-                case "6":
-                    this.handleDeleteApartment();
-                    break;
-                case "7":
-                    this.handleShowPeople();
-                    break;
-                case "8":
-                    this.handleShowApartments();
-                    break;
-                case "9":
-                    this.handleShowTaxes();
-                    break;
-                case "10":
-                    this.handleShowInfo();
-                    break;
-                default:
-                    System.out.println("Optiune inexistenta.");
-                    break;
+            case "1":
+                this.handleAddPerson();
+                break;
+            case "2":
+                this.handleAddApartment();
+                break;
+            case "3":
+                this.handleUpdatePerson();
+                break;
+            case "4":
+                this.handleUpdateApartment();
+                break;
+            case "5":
+                this.handleDeletePerson();
+                break;
+            case "6":
+                this.handleDeleteApartment();
+                break;
+            case "7":
+                this.handleShowPeople();
+                break;
+            case "8":
+                this.handleShowApartments();
+                break;
+            case "9":
+                this.handleShowTaxes();
+                break;
+            case "10":
+                this.handleShowInfo();
+                break;
+            default:
+                System.out.println("Optiune inexistenta.");
+                break;
             }
             handleShowMenu();
         }
     }
+
 
     // Handler for adding a person
     private void handleAddPerson() {
@@ -112,8 +119,15 @@ public class Console {
             System.out.println("Conversie nr. apartament esuata.");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Datele introduse nu pot alcatui persoane valide.");
+        } catch (ModelException e) {
+            System.out.println(e.getMessage());
+        } catch (DateTimeParseException e) {
+            System.out.println("Data de nastere nu este valida. Format: yyyy-MM-dd. ");
+        } catch (NullPointerException e) {
+            System.out.println("Apartamentul cu numarul dat nu exista. ");
         }
     }
+
 
     // Handler for adding an apartment
     private void handleAddApartment() {
@@ -135,8 +149,11 @@ public class Console {
             System.out.println("Conversie nr. apartament / suprafata esuata.");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Datele introduse nu pot alcatui apartamente valide.");
+        } catch (ModelException e) {
+            System.out.println(e.getMessage());
         }
     }
+
 
     // Handler for updating a person
     private void handleUpdatePerson() {
@@ -161,8 +178,11 @@ public class Console {
             this.service.updatePerson(ID, newForename, newSurname, newNoApartment, newBirthdate, newJob);
         } catch (NumberFormatException e) {
             System.out.println("ID-ul trebuie sa fie un numar natural pozitiv.");
+        } catch (ModelException e) {
+            System.out.println(e.getMessage());
         }
     }
+
 
     // Handler for updating an apartment
     private void handleUpdateApartment() {
@@ -179,15 +199,18 @@ public class Console {
 
             int newNoApartment = Integer.parseInt(apartmentData[0]);
             String newOwner = apartmentData[1];
-            int newSurface = Integer.parseInt(apartmentData[2]);
+
+            int newSurface = this.service.getApartment(ID).getSurface();
 
             int noResidents = this.service.getApartment(ID).getNoResidents();
             this.service.updateApartment(ID, newNoApartment, newOwner, noResidents, newSurface);
         } catch (NumberFormatException e) {
             System.out.println("ID-ul trebuie sa fie un numar natural pozitiv.");
-
+        } catch (ModelException e) {
+            System.out.println(e.getMessage());
         }
     }
+
 
     // Handler for deleting a person
     private void handleDeletePerson() {
@@ -203,6 +226,7 @@ public class Console {
         }
     }
 
+
     // Handler for deleting an apartment
     private void handleDeleteApartment() {
         try {
@@ -217,6 +241,7 @@ public class Console {
         }
     }
 
+
     // Handler for displaying people
     private void handleShowPeople() {
         try {
@@ -226,6 +251,7 @@ public class Console {
         }
     }
 
+
     // Handler for displaying apartments
     private void handleShowApartments() {
         try {
@@ -234,6 +260,7 @@ public class Console {
             System.out.println("Eroare??");
         }
     }
+
 
     // Handler for displaying tax information
     private void handleShowTaxes() {
@@ -251,6 +278,7 @@ public class Console {
             System.out.println("Dati un numar de la 1 la 12.");
         }
     }
+
 
     // Handler for displaying events
     private void handleShowInfo() {

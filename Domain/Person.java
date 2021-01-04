@@ -54,8 +54,7 @@ public class Person {
     /**
      * Parameterized constructor
      * 
-     * @param data
-     *                 - String Array containing a person's data
+     * @param data - String Array containing a person's data
      */
     public Person(String[] data) {
         String format = "yyyy-MM-dd";
@@ -93,8 +92,7 @@ public class Person {
     /**
      * Setter for forename
      * 
-     * @param newForename
-     *                        Person's new forename
+     * @param newForename Person's new forename
      */
     public void setForename(String newForename) {
         this.forename = newForename;
@@ -114,8 +112,7 @@ public class Person {
     /**
      * Setter for surname
      * 
-     * @param newSurname
-     *                       Person's new surname
+     * @param newSurname Person's new surname
      */
     public void setSurname(String newSurname) {
         this.surname = newSurname;
@@ -135,8 +132,7 @@ public class Person {
     /**
      * Setter for person's apartment number
      * 
-     * @param newNoApartment
-     *                           person's new apartment number
+     * @param newNoApartment person's new apartment number
      */
     public void setNoApartment(int newNoApartment) {
         this.noApartment = newNoApartment;
@@ -156,8 +152,7 @@ public class Person {
     /**
      * Setter for person's birthdate
      * 
-     * @param newBirthdate
-     *                         person's new birthdate
+     * @param newBirthdate person's new birthdate
      */
     public void setBirthdate(LocalDate newBirthdate) {
         this.birthdate = newBirthdate;
@@ -177,8 +172,7 @@ public class Person {
     /**
      * Setter for person's job
      * 
-     * @param newJob
-     *                   person's new job
+     * @param newJob person's new job
      */
     public void setJob(String newJob) {
         this.job = newJob;

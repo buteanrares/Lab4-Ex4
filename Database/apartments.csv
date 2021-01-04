@@ -1,23 +1,42 @@
-1,2,Frankie Peck,2,150
-2,4,Drake Albertha,2,102
-3,5,Whittle Errol,1,110
-4,7,Jamie Foxx,3,90
-5,9,Corrigan Jefferey,2,97
-6,11,Elisha Cuthbert,4,110
-7,12,Rami Malek,2,70
-8,13,Taylor Schilling,2,130
-9,15,Diane Kruger,2,85
-10,17,Nicole Kidman,2,110
-11,21,Coates Andrew,3,100
-12,25,Manu Bennett,2,80
-13,27,Grey Latisha,2,83
-14,30,fara,0,100
-15,31,Benson Meadow,2,113
-16,34,fara,0,90
-17,35,Emilia Clarke,1,90
-18,40,Brenton Thwaites,1,95
-19,41,Birch Dorie,3,98
-20,48,Soprano Anthony,2,120
-21,49,fara,0,110
-22,50,Rose Byrne,3,75
-23,89,Rebecca Romijn,1,102
+1,Frankie,Peck,2,1990-01-30,ortodont
+2,Nicole,Kidman,17,2001-10-16,student
+3,Diane,Kruger,15,1995-04-24,asistent medical
+4,Rami,Malek,12,1995-03-21,inginer
+5,Manu,Bennett,25,1990-07-05,programator
+6,Emilia,Clarke,35,1964-11-27,actionar
+7,Brenton,Thwaites,40,1955-12-01,pensionar
+8,Rebecca,Romijn,89,1971-02-18,profesor
+9,Richard,Armitage,25,1971-08-21,avocat
+10,Michael,Pitt,15,1977-06-07,muzician
+11,Taylor,Schilling,13,1989-11-25,chirurg
+12,Elisha,Cuthbert,11,1955-03-15,pensionar
+13,Jamie,Foxx,7,1954-11-10,actionar
+14,Taylor,Momsen,7,1983-11-11,coregraf
+15,Pierce,Brosnan,7,2000-05-14,student
+16,Steven,Spielberg,11,1967-09-10,psiholog
+17,James,Spader,13,1980-11-12,instructor fitness
+18,Vanessa,Hudgens,11,1969-03-11,manager
+19,Alexander,Skarsgard,11,1977-02-03,instructor auto
+20,Adam,Sandler,2,1989-10-08,actor
+21,Alexander,Ludwig,17,1992-06-04,functionar bancar
+22,Rose,Byrne,50,1999-12-26,ilustrator
+23,Alexa,Vega,50,1963-11-23,broker asigurari
+24,Alexandra,Breckenridge,50,1958-11-23,farmacist
+25,Tim,Roth,12,1989-11-25,psihoterapeut
+26,Albertha,Drake,4,1983-11-13,psihiatru
+27,Eleonor,Brooks,4,1971-05-18,profesor
+28,Errol,Whittle,5,1969-09-17,designer
+29,Jefferey,Corrigan,9,1971-05-21,pensionar
+30,Samantha,Moore,9,1978-05-11,pensionar
+31,Susanne,Walsh,21,1985-05-05,secretar
+32,Andrew,Coates,21,1983-10-11,estetician
+33,Jewell,Betts,21,1995-10-05,cascador
+34,Clarine,Holman,27,1996-05-03,student
+35,Latisha,Grey,27,1982-10-11,menajer
+36,Meadow,Benson,31,1970-10-01,judecator
+37,Judie,Boyle,31,1972-12-22,operator telefon
+38,Coles,Hanson,41,1999-03-05,taximetrist
+39,Dorie,Birch,41,1992-02-10,coordonator vanzari
+40,Betsy,Hood,41,1083-04-01,consultant financiar
+41,Anthony,Soprano,48,1987-02-01,arhitect
+42,Carmella,Soprano,48,1989-11-12,manichiurist

@@ -6,7 +6,6 @@ import Exceptions.ModelException;
 import Domain.Apartment;
 import Validator.ModelValidator;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
 
@@ -37,6 +36,9 @@ public class Service {
      * @param noApartment
      * @param birthdate
      * @param job
+     * @throws ModelException
+     *                            - if model doesnt meet it's requirements
+     *                            (validation fails)
      */
     public void createPerson(String forename, String surname, int noApartment, String birthdate, String job)
             throws ModelException {
@@ -61,6 +63,9 @@ public class Service {
      * @param owner
      * @param noResidents
      * @param surface
+     * @throws ModelException
+     *                            - if model doesnt meet it's requirements
+     *                            (validation fails)
      */
     public void createApartment(int noApartment, String owner, int noResidents, int surface) throws ModelException {
         Apartment apartment = new Apartment(generateApartmentID(), noApartment, owner, noResidents, surface);
@@ -113,6 +118,9 @@ public class Service {
      * @param newNoApartment
      * @param newBirthdate
      * @param newJob
+     * @throws ModelException
+     *                            - if model doesnt meet it's requirements
+     *                            (validation fails)
      */
     public void updatePerson(Integer ID, String newForename, String newSurname, int newNoApartment, String newBirthdate,
             String newJob) throws ModelException {
@@ -151,6 +159,9 @@ public class Service {
      * @param newOwner
      * @param newNoResidents
      * @param newSurface
+     * @throws ModelException
+     *                            - if model doesnt meet it's requirements
+     *                            (validation fails)
      */
     public void updateApartment(Integer ID, int newNoApartment, String newOwner, int newNoResidents, int newSurface)
             throws ModelException {
@@ -231,7 +242,7 @@ public class Service {
      * @return person available ID
      */
     private Integer generatePersonID() {
-        int ID = 0;
+        int ID = 1;
         while (this.repository.getPerson(ID) != null) {
             ID++;
         }
@@ -245,7 +256,7 @@ public class Service {
      * @return apartment available ID
      */
     private Integer generateApartmentID() {
-        int ID = 0;
+        int ID = 1;
         while (this.repository.getApartment(ID) != null) {
             ID++;
         }
@@ -359,6 +370,16 @@ public class Service {
     }
 
 
+    /**
+     * Finds a new owner for an apartment. If no owner can be found, the apartment's
+     * owner will be none
+     * 
+     * @param apartment
+     *                      - apartment to find a new owner for
+     * @param exOwner
+     *                      - leaving person
+     * @return
+     */
     private String findNewOwner(Apartment apartment, Person exOwner) {
         Collection<Person> people = this.repository.getPeople().values();
         people.remove(exOwner);

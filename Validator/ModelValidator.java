@@ -19,6 +19,7 @@ public class ModelValidator {
 
     /**
      * Validates a person. Performs model binding and validation
+     * 
      * @param person - person to be validated
      * @throws ModelException - if validation fails
      */
@@ -53,6 +54,7 @@ public class ModelValidator {
 
     /**
      * Validates an apartment. Performs model binding and validation
+     * 
      * @param apartment - apartment to be validated
      * @throws ModelException - if validation fails
      */

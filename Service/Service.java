@@ -36,9 +36,8 @@ public class Service {
      * @param noApartment
      * @param birthdate
      * @param job
-     * @throws ModelException
-     *                            - if model doesnt meet it's requirements
-     *                            (validation fails)
+     * @throws ModelException - if model doesnt meet it's requirements (validation
+     *                            fails)
      */
     public void createPerson(String forename, String surname, int noApartment, String birthdate, String job)
             throws ModelException {
@@ -63,9 +62,8 @@ public class Service {
      * @param owner
      * @param noResidents
      * @param surface
-     * @throws ModelException
-     *                            - if model doesnt meet it's requirements
-     *                            (validation fails)
+     * @throws ModelException - if model doesnt meet it's requirements (validation
+     *                            fails)
      */
     public void createApartment(int noApartment, String owner, int noResidents, int surface) throws ModelException {
         Apartment apartment = new Apartment(generateApartmentID(), noApartment, owner, noResidents, surface);
@@ -78,8 +76,7 @@ public class Service {
     /**
      * Reads a specific person
      * 
-     * @param ID
-     *               person's identifier
+     * @param ID person's identifier
      * @return person with that ID
      */
     public Person getPerson(Integer ID) {
@@ -90,8 +87,7 @@ public class Service {
     /**
      * Reads a specific apartment
      * 
-     * @param ID
-     *               apartment's identifier
+     * @param ID apartment's identifier
      * @return apartment with that ID
      */
     public Apartment getApartment(Integer ID) {
@@ -118,9 +114,8 @@ public class Service {
      * @param newNoApartment
      * @param newBirthdate
      * @param newJob
-     * @throws ModelException
-     *                            - if model doesnt meet it's requirements
-     *                            (validation fails)
+     * @throws ModelException - if model doesnt meet it's requirements (validation
+     *                            fails)
      */
     public void updatePerson(Integer ID, String newForename, String newSurname, int newNoApartment, String newBirthdate,
             String newJob) throws ModelException {
@@ -159,9 +154,8 @@ public class Service {
      * @param newOwner
      * @param newNoResidents
      * @param newSurface
-     * @throws ModelException
-     *                            - if model doesnt meet it's requirements
-     *                            (validation fails)
+     * @throws ModelException - if model doesnt meet it's requirements (validation
+     *                            fails)
      */
     public void updateApartment(Integer ID, int newNoApartment, String newOwner, int newNoResidents, int newSurface)
             throws ModelException {
@@ -200,8 +194,7 @@ public class Service {
     /**
      * Deletes a person by ID, calling repository
      * 
-     * @param ID
-     *               person's ID
+     * @param ID person's ID
      */
     public void deletePerson(Integer ID) {
         Person deletedPerson = this.repository.getPerson(ID);
@@ -306,9 +299,8 @@ public class Service {
      * Generates a table-like String containing tax information for each inhabited
      * apartment
      * 
-     * @param month
-     *                  - int, seed for random nuber generator and the month to
-     *                  generate taxes for
+     * @param month - int, seed for random nuber generator and the month to generate
+     *                  taxes for
      * @return table-like String
      */
     public String generateTaxesTable(int month) {
@@ -374,10 +366,8 @@ public class Service {
      * Finds a new owner for an apartment. If no owner can be found, the apartment's
      * owner will be none
      * 
-     * @param apartment
-     *                      - apartment to find a new owner for
-     * @param exOwner
-     *                      - leaving person
+     * @param apartment - apartment to find a new owner for
+     * @param exOwner   - leaving person
      * @return
      */
     private String findNewOwner(Apartment apartment, Person exOwner) {

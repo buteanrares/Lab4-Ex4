@@ -40,8 +40,7 @@ public class Apartment {
     /**
      * Parameterized constructor
      * 
-     * @param data
-     *                 - String array containing apartment data
+     * @param data - String array containing apartment data
      */
     public Apartment(String[] data) {
         this.ID = Integer.parseInt(data[0]);
@@ -75,8 +74,7 @@ public class Apartment {
     /**
      * Setter for number of the apartment
      * 
-     * @param newNoApartment
-     *                           new apartment number
+     * @param newNoApartment new apartment number
      */
     public void setNoApartment(int newNoApartment) {
         this.noApartment = newNoApartment;
@@ -96,8 +94,7 @@ public class Apartment {
     /**
      * Setter for apartment's owenr
      * 
-     * @param newOwner
-     *                     apartment's new owner
+     * @param newOwner apartment's new owner
      */
     public void setOwner(String newOwner) {
         this.owner = newOwner;
@@ -117,8 +114,7 @@ public class Apartment {
     /**
      * Setter for the number of residents
      * 
-     * @param newNoResidents
-     *                           new number of residents
+     * @param newNoResidents new number of residents
      */
     public void setNoResidents(int newNoResidents) {
         this.noResidents = newNoResidents;
@@ -138,8 +134,7 @@ public class Apartment {
     /**
      * Setter for the surface
      * 
-     * @param newSurface
-     *                       new apartment's surface
+     * @param newSurface new apartment's surface
      */
     public void setSurface(int newSurface) {
         this.surface = newSurface;

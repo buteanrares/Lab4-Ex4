@@ -20,6 +20,3 @@ public class Program {
     }
 
 }
-
-// TODO: Find some bugs.
-// TODO: Fix CRUD interactions between Person-Apartment

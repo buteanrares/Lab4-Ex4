@@ -140,6 +140,37 @@ public class Repository {
 
 
     /**
+     * Reads an apartment by its number
+     * 
+     * @param noApartment
+     * @return Apartment with that number
+     */
+    public Apartment getApartmentByNumber(Integer noApartment) {
+        for (Apartment apartment : this.apartments.values()) {
+            if (apartment.getNoApartment() == noApartment)
+                return apartment;
+        }
+        return new Apartment();
+    }
+
+
+    /**
+     * Reads a person by its full name
+     * 
+     * @param fullName person's full name
+     * @return person with that name
+     * @see service.updateAparment()
+     */
+    public Person getPerson(String fullName) {
+        for (Person person : this.people.values()) {
+            if (fullName.equals(person.getForename() + " " + person.getSurname()))
+                return person;
+        }
+        return new Person();
+    }
+
+
+    /**
      * Getter for the list of people
      * 
      * @return All people saved in memory as an ArrayList

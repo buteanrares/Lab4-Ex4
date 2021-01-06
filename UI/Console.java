@@ -191,7 +191,7 @@ public class Console {
             Integer ID = this.scan.nextInt();
 
             System.out.println("Dati atributele apartamentului conform modelului");
-            System.out.println("nr. apartament,proprietar,suprafata");
+            System.out.println("nr. apartament,proprietar");
             this.scan.nextLine(); // consuma \n
 
             String userInput = this.scan.nextLine();

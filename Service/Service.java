@@ -160,11 +160,11 @@ public class Service {
     public void updateApartment(Integer ID, int newNoApartment, String newOwner, int newNoResidents, int newSurface)
             throws ModelException {
         Apartment oldApartment = this.getApartment(ID);
-        Apartment apartment = new Apartment(ID, newNoApartment, newOwner, newNoResidents, newSurface);
+        Apartment newApartment = new Apartment(ID, newNoApartment, newOwner, newNoResidents, newSurface);
 
-        this.modelValidator.validate(apartment);
+        this.modelValidator.validate(newApartment);
 
-        if (oldApartment.getNoApartment() != apartment.getNoApartment()) {
+        if (oldApartment.getNoApartment() != newApartment.getNoApartment()) {
             Collection<Person> peopleCopy = this.repository.getPeople().values();
             for (Person person : peopleCopy) {
                 if (person.getNoApartment() == oldApartment.getNoApartment()) {
@@ -174,20 +174,24 @@ public class Service {
             }
         }
 
-        if (!oldApartment.getOwner().equals(apartment.getOwner())) {
-            for (Person p : this.repository.getPeople().values()) {
-                if (oldApartment.getOwner().equals(p.getForename() + " " + p.getSurname())) {
-                    p.setNoApartment(apartment.getNoApartment());
+        if (!oldApartment.getOwner().equals(newApartment.getOwner())) {
+            Person movingPerson = this.repository.getPerson(newApartment.getOwner());
+            Apartment apartment = this.repository.getApartmentByNumber(movingPerson.getNoApartment());
 
-                    oldApartment.setNoResidents(oldApartment.getNoResidents() - 1);
-                    oldApartment.setOwner(this.findNewOwner(oldApartment, p));
+            apartment.setNoResidents(apartment.getNoResidents() - 1);
 
-                    apartment.setNoResidents(newNoResidents + 1);
-                }
+            if (apartment.getOwner().equals(movingPerson.getForename() + " " + movingPerson.getSurname())) {
+                apartment.setOwner(this.findNewOwner(apartment, movingPerson));
+                this.repository.update(apartment.getID(), apartment);
             }
+
+            movingPerson.setNoApartment(newApartment.getNoApartment());
+            this.repository.update(movingPerson.getID(), movingPerson);
+
+            newApartment.setNoResidents(newApartment.getNoResidents() + 1);
         }
 
-        this.repository.update(ID, apartment);
+        this.repository.update(ID, newApartment);
     }
 
 
@@ -375,7 +379,6 @@ public class Service {
         people.remove(exOwner);
 
         for (Person person : people) {
-            // TODO Verify eligibility of apartment ownership
             if (person.getNoApartment() == apartment.getNoApartment()) {
                 return person.getForename() + " " + person.getSurname();
             }

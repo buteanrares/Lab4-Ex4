@@ -271,7 +271,7 @@ public class Service {
                 "Nr. apartament", "Zi nastere", "Job");
         String output = header + "\n";
         for (Person person : this.repository.getPeople().values()) {
-            String formattedPerson = String.format("%-5s | %-15s | %-15s | %20s | %-15s | %-15s", person.getID(),
+            String formattedPerson = String.format("%5s | %-15s | %-15s | %20s | %-15s | %-15s", person.getID(),
                     person.getSurname(), person.getForename(), person.getNoApartment(), person.getBirhtdate(),
                     person.getJob());
             output += formattedPerson + "\n";
@@ -290,7 +290,7 @@ public class Service {
                 "Nr. locatari", "Suprafata");
         String output = header + "\n";
         for (Apartment apartment : this.repository.getApartments().values()) {
-            String formattedApartment = String.format("%-5s | %20s | %-25s | %13s | %9s", apartment.getID(),
+            String formattedApartment = String.format("%5s | %20s | %-25s | %13s | %9s", apartment.getID(),
                     apartment.getNoApartment(), apartment.getOwner(), apartment.getNoResidents(),
                     apartment.getSurface());
             output += formattedApartment += "\n";
@@ -353,13 +353,13 @@ public class Service {
             if (person.getJob().equals("pensionar") || person.getJob().equals("somer")) {
                 String description = "Locatarul " + person.getSurname() + " " + person.getForename() + " este "
                         + person.getJob();
-                output += String.format("%-7d | %-35s", currentInfo++, description) + "\n";
+                output += String.format("%7d | %-35s", currentInfo++, description) + "\n";
             }
         }
         for (Apartment apartment : this.repository.getApartments().values()) {
             if (apartment.getOwner().equals("fara")) {
                 String description = "Apartamentul " + apartment.getNoApartment() + " este de vanzare";
-                output += String.format("%-7d | %-35s", currentInfo++, description) + "\n";
+                output += String.format("%7d | %-35s", currentInfo++, description) + "\n";
             }
         }
         return output;
